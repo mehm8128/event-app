@@ -84,7 +84,7 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 		<div className={styles.treeTop}>
 			<TwitterShareButton
 				title="クリスマスツリーを飾りつけしました"
-				url="https://mehm8128.github.io/event-app/"
+				url="https://event-app-ecru.vercel.app/"
 			>
 				ツイートする
 				<TwitterIcon size={32} round />
