@@ -1,0 +1,10 @@
+.sideBar {
+	margin-left: auto;
+	flex-grow: 1;
+	overflow: scroll;
+	height: 100vh;
+}
+
+ul {
+	list-style: none;
+}

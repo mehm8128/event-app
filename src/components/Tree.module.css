@@ -1,0 +1,16 @@
+.treeTop {
+	flex-grow: 10;
+	margin-top: 80px;
+}
+.tree {
+	position: relative;
+}
+.ul {
+	list-style: none;
+}
+.decoratedItem {
+	position: absolute;
+}
+.christmasTree {
+	position: absolute;
+}
