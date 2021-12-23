@@ -9,22 +9,20 @@ interface TreeProps {
 	selected: string
 	setSelected: React.Dispatch<React.SetStateAction<string>>
 }
-interface Coodinate {
+interface ItemList {
+	src: string
 	x: number
 	y: number
 }
 const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
-	const [itemList, setItemList] = useState<string[]>(new Array<string>())
-	const [coodinate, setCoodinate] = useState<Coodinate[]>(
-		new Array<Coodinate>()
-	)
+	const [itemList, setItemList] = useState<ItemList[]>(new Array<ItemList>())
 	function handleClick(e: any) {
 		e.preventDefault()
 		if (selected !== "") {
-			setItemList(itemList.concat([selected]))
-			setCoodinate(coodinate.concat([{ x: e.clientX, y: e.clientY }]))
+			setItemList(
+				itemList.concat([{ src: selected, x: e.clientX, y: e.clientY }])
+			)
 			setSelected("")
-			console.log(coodinate)
 		}
 	}
 	const listItems = itemList.map((item, index) => (
@@ -32,19 +30,14 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 			className={styles.decoratedItem}
 			key={index}
 			style={{
-				top: coodinate[index].y - 69 + "px",
-				left: coodinate[index].x - 40 + "px",
+				top: itemList[index].y - 69 + "px",
+				left: itemList[index].x - 40 + "px",
 			}}
 		>
 			<DecoratedItem
-				src={item}
 				index={index}
-				x={coodinate[index].x}
-				y={coodinate[index].y}
 				itemList={itemList}
 				setItemList={setItemList}
-				coodinate={coodinate}
-				setCoodinate={setCoodinate}
 			/>
 		</span>
 	))

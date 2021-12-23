@@ -1,23 +1,18 @@
-import React from "react"
+import { useContext } from "react"
+import { SelectedContext } from "../pages/Top"
 import styles from "./Item.module.css"
 
 interface ItemProps {
 	src: string
 	name: string
 	index: number
-	selected: string
-	setSelected: React.Dispatch<React.SetStateAction<string>>
 }
-const Item: React.VFC<ItemProps> = ({
-	src,
-	name,
-	index,
-	selected,
-	setSelected,
-}) => {
+
+const Item: React.VFC<ItemProps> = ({ src, name, index }) => {
+	const selectedContext = useContext(SelectedContext)
 	function handleClick(e: any) {
 		e.preventDefault()
-		setSelected(src)
+		selectedContext.setSelected(src)
 	}
 	return (
 		<div>
@@ -25,7 +20,7 @@ const Item: React.VFC<ItemProps> = ({
 				onClick={handleClick}
 				className={styles.item}
 				style={
-					selected === src
+					selectedContext.selected === src
 						? { border: "solid blue" }
 						: { border: "solid black" }
 				}
