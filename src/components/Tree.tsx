@@ -30,8 +30,8 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 			className={styles.decoratedItem}
 			key={index}
 			style={{
-				top: itemList[index].y - 69 + "px",
-				left: itemList[index].x - 40 + "px",
+				top: item.y - 100 + "px",
+				left: item.x - 40 + "px",
 			}}
 		>
 			<DecoratedItem
@@ -83,6 +83,7 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 				<TwitterIcon size={32} round />
 			</TwitterShareButton>
 			<button onClick={captureImage}>画像で保存</button>
+			<button onClick={() => console.log(itemList)}>こんそーるろぐ</button>
 			<div className={styles.tree} id="capture">
 				<img
 					src={tree}
