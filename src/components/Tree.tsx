@@ -83,7 +83,6 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 				<TwitterIcon size={32} round />
 			</TwitterShareButton>
 			<button onClick={captureImage}>画像で保存</button>
-			<button onClick={() => console.log(itemList)}>こんそーるろぐ</button>
 			<div className={styles.tree} id="capture">
 				<img
 					src={tree}
