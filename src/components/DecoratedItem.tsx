@@ -18,11 +18,9 @@ const DecoratedItem: React.VFC<ItemProps> = ({
 }) => {
 	function handleClick(e: any) {
 		e.preventDefault()
-		if (itemList.length === 1) {
-			setItemList([])
-		} else {
-			setItemList(itemList.splice(index))
-		}
+		let itemListCopy = [...itemList]
+		itemListCopy.splice(index, 1)
+		setItemList(itemListCopy)
 	}
 	return (
 		<button onClick={handleClick} className={styles.decoratedItem}>

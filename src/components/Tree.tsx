@@ -1,7 +1,7 @@
 import styles from "./Tree.module.css"
 import tree from "../assets/christmastree_nude.png"
 import DecoratedItem from "./DecoratedItem"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { TwitterShareButton, TwitterIcon } from "react-share"
 import html2canvas from "html2canvas"
 
@@ -15,6 +15,7 @@ interface ItemList {
 	y: number
 }
 const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
+	const refContainer = useRef<HTMLDivElement>(null!)
 	const [itemList, setItemList] = useState<ItemList[]>(new Array<ItemList>())
 	function handleClick(e: any) {
 		e.preventDefault()
@@ -30,8 +31,12 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 			className={styles.decoratedItem}
 			key={index}
 			style={{
-				top: item.y - 100 + "px",
-				left: item.x - 40 + "px",
+				top: item.y - refContainer.current.getBoundingClientRect().top + "px",
+				left:
+					item.x -
+					refContainer.current.getBoundingClientRect().left -
+					50 +
+					"px",
 			}}
 		>
 			<DecoratedItem
@@ -83,7 +88,7 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 				<TwitterIcon size={32} round />
 			</TwitterShareButton>
 			<button onClick={captureImage}>画像で保存</button>
-			<div className={styles.tree} id="capture">
+			<div className={styles.tree} id="capture" ref={refContainer}>
 				<img
 					src={tree}
 					alt="tree"
