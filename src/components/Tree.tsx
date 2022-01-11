@@ -1,7 +1,7 @@
 import styles from "./Tree.module.css"
 import tree from "../assets/christmastree_nude.png"
 import DecoratedItem from "./DecoratedItem"
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { TwitterShareButton, TwitterIcon } from "react-share"
 import html2canvas from "html2canvas"
 
@@ -15,28 +15,27 @@ interface ItemList {
 	y: number
 }
 const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
-	const refContainer = useRef<HTMLDivElement>(null!)
 	const [itemList, setItemList] = useState<ItemList[]>(new Array<ItemList>())
 	function handleClick(e: any) {
 		e.preventDefault()
 		if (selected !== "") {
 			setItemList(
-				itemList.concat([{ src: selected, x: e.clientX, y: e.clientY }])
+				itemList.concat([
+					{ src: selected, x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY },
+				])
 			)
+			console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
 			setSelected("")
 		}
 	}
 	const listItems = itemList.map((item, index) => (
-		<span
+		<div
 			className={styles.decoratedItem}
 			key={index}
 			style={{
-				top: item.y - refContainer.current.getBoundingClientRect().top + "px",
-				left:
-					item.x -
-					refContainer.current.getBoundingClientRect().left -
-					50 +
-					"px",
+				top: item.y + "px",
+				left: item.x + "px",
+				transform: "translate(-50%)",
 			}}
 		>
 			<DecoratedItem
@@ -44,7 +43,7 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 				itemList={itemList}
 				setItemList={setItemList}
 			/>
-		</span>
+		</div>
 	))
 	function saveAsImage(uri: any) {
 		const downloadLink = document.createElement("a")
@@ -71,8 +70,8 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 		// 画像に変換する component の id を指定
 		const target = document.getElementById("capture")
 		html2canvas(target as HTMLCanvasElement, {
-			width: 1000,
-			height: 600,
+			width: 320,
+			height: 550,
 		}).then((canvas) => {
 			const targetImgUri = canvas.toDataURL("img/png")
 			saveAsImage(targetImgUri)
@@ -88,7 +87,7 @@ const Tree: React.VFC<TreeProps> = ({ selected, setSelected }) => {
 				<TwitterIcon size={32} round />
 			</TwitterShareButton>
 			<button onClick={captureImage}>画像で保存</button>
-			<div className={styles.tree} id="capture" ref={refContainer}>
+			<div className={styles.tree} id="capture">
 				<img
 					src={tree}
 					alt="tree"

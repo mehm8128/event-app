@@ -28,10 +28,6 @@ const DecoratedItem: React.VFC<ItemProps> = ({
 				src={itemList[index].src}
 				alt={index + "image"}
 				className={styles.itemImg}
-				style={{
-					top: itemList[index].y - 69 + "px",
-					left: itemList[index].x - 581 + "px",
-				}}
 			/>
 		</button>
 	)
